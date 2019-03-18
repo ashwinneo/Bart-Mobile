@@ -1,6 +1,8 @@
 {
   "name": "bart-mobile",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "cc913e41"
 }

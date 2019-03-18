@@ -1,9 +1,81 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Schedule
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <div class="container">
+    <div class="row mt-5" *ngIf="isError">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Source and Destination are same!!!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-sm-2">
+        <label>Source</label>
+      </div>
+      <div class="col-sm-10">
+        <select name="origin" class="form-control" [(ngModel)]="source" (change)="selectSource(source)">
+          <option value="" disabled>Select Source</option>
+          <option *ngFor="let data of stations" value={{data.abbr}}>{{data.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-2">
+          <label>Destination</label>
+        </div>
+        <div class="col-sm-10">
+          <select name="origin" class="form-control" [(ngModel)]="destination" [disabled]="isDisabled" (change)="selectDestination(destination)">
+            <option value="" disabled>Select Destination</option>
+            <option *ngFor="let data of stations" value={{data.abbr}}>{{data.name}}</option>
+          </select>
+        </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-10">
+        <div>
+          <button name="submit" class="btn btn-primary form-control" (click)="getTrips()" [disabled]="isbtnDisabled">Check</button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+        <ion-card class="welcome-card" *ngFor="let data of scheduleArray1">
+            <!-- <ion-img src="/assets/shapes.svg"></ion-img> -->
+            <ion-card-header>
+              
+            </ion-card-header>
+            <ion-card-content>
+              <div class="row">
+                <div class="col-sm-12"><div>
+                    <span>Depart Time: </span> <span> {{data.departTime}}</span>
+                  </div>
+                  <div>
+                      <label>Fare: </label> <span> {{data.fare}}</span>
+                  </div>
+                  <div>
+                      <label>Arrival Time: </label> <span> {{data.arrivalTime}}</span>
+                  </div>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+    </div>
+    <!-- <div class="row">
+        <div class="col-sm-2"> </div>
+        <div class="col-sm-9">
+            <app-google-maps *ngIf="showMap" [mapArray]="this.mapArray"></app-google-maps>
+          </div>
+    </div> -->
+  </div>
+</ion-content>

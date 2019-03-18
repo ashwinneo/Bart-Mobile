@@ -7,13 +7,21 @@ import { TabsPageRoutingModule } from './tabs.router.module';
 
 import { TabsPage } from './tabs.page';
 
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+
+import { GoogleMapsComponent } from '../google-maps/google-maps.component';
 @NgModule({
   imports: [
-    IonicModule,
+  IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDaYQRdZCQAhvwSuwZohDjfOY3HHdGXc4M'
+    }),
+    AgmDirectionModule
   ],
-  declarations: [TabsPage]
+  declarations: [GoogleMapsComponent, TabsPage]
 })
 export class TabsPageModule {}

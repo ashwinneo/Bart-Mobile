@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Want information about stations?
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="welcome-card" *ngFor="let data of station">
+      <ion-img src="../assets/images/travel.jpg"></ion-img>
+      <ion-card-header>
+        <ion-card-subtitle><span style="font-size: 25px;">{{data.name}}</span></ion-card-subtitle>
+        <ion-card-title>{{data.address}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><label>City:</label> {{data.city}}</p>
+        <p><label>State:</label> {{data.state}}</p>
+        <p><label>County:</label> {{data.county}}</p>
+        <p><label>Zip Code:</label> {{data.zipcode}}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="welcome-card">
+        <ion-img src="../assets/images/vegetables.jpg"></ion-img>
+        <ion-card-header>
+          <ion-card-subtitle><span style="font-size: 25px;">Food</span></ion-card-subtitle>
+          <!-- <ion-card-title>{{data.address}}</ion-card-title> -->
+        </ion-card-header>
+        <ion-card-content>
+          <div class="text-center">
+              <p style="font-size: 18px !important;"><a href="{{food}}">Want to know more?</a></p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="welcome-card">
+          <ion-img src="../assets/images/shopping.jpg"></ion-img>
+          <ion-card-header>
+            <ion-card-subtitle><span style="font-size: 25px;">Shopping</span></ion-card-subtitle>
+            <!-- <ion-card-title>{{data.address}}</ion-card-title> -->
+          </ion-card-header>
+          <ion-card-content>
+            <div class="text-center">
+                <p style="font-size: 18px !important;"><a href="{{shopping}}">Want to know more?</a></p>
+            </div>
+          </ion-card-content>
+        </ion-card>
+</ion-content>

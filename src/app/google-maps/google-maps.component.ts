@@ -13,14 +13,15 @@ export class GoogleMapsComponent implements OnInit {
   destination: any;
   travelMode: String;
   mapTypeId: String;
+   
+  lat: number = 37.752470;
+  lng: number = -122.418143;
   ngOnInit() {
     console.log(this.mapArray);
     this.origin = this.mapArray[0];
     this.destination = this.mapArray[1];
     this.travelMode = "TRANSIT";
   }
-  lat: number = 37.752470;
-  lng: number = -122.418143;
   zoom: number = 8;
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)

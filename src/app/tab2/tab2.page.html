@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary" class="ion-color ion-color-primary hydrated">
     <ion-title>
       Schedule
     </ion-title>
@@ -7,6 +7,15 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+  <ion-progress-bar *ngIf="isLoader" type="indeterminate"></ion-progress-bar>
   <div class="container">
     <div class="row mt-5" *ngIf="isError">
       <div class="col-sm-4"></div>
@@ -20,25 +29,23 @@
       </div>
     </div>
     <div class="row mt-5">
-      <div class="col-sm-2">
-        <label>Source</label>
+      <div class="col-sm-2 mt-2">
+        <ion-label>Source</ion-label>
       </div>
       <div class="col-sm-10">
-        <select name="origin" class="form-control" [(ngModel)]="source" (change)="selectSource(source)">
-          <option value="" disabled>Select Source</option>
-          <option *ngFor="let data of stations" value={{data.abbr}}>{{data.name}}</option>
-        </select>
+        <ion-select placeholder="Source" [(ngModel)]="source" (ionChange)="selectSource(source)">
+          <ion-select-option  *ngFor="let data of stations" value={{data.abbr}}>{{data.name}}</ion-select-option>
+        </ion-select>
       </div>
     </div>
     <div class="row mt-5">
-        <div class="col-sm-2">
-          <label>Destination</label>
+        <div class="col-sm-2 mt-2">
+          <ion-label>Destination</ion-label>
         </div>
         <div class="col-sm-10">
-          <select name="origin" class="form-control" [(ngModel)]="destination" [disabled]="isDisabled" (change)="selectDestination(destination)">
-            <option value="" disabled>Select Destination</option>
-            <option *ngFor="let data of stations" value={{data.abbr}}>{{data.name}}</option>
-          </select>
+          <ion-select placeholder="Destination"  [(ngModel)]="destination" [disabled]="isDisabled" (ionChange)="selectDestination(destination)">
+              <ion-select-option  *ngFor="let data of stations" value={{data.abbr}}>{{data.name}}</ion-select-option>
+            </ion-select>
         </div>
     </div>
     <div class="row mt-5">
@@ -49,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5" *ngIf="scheduleArray1.length > 0">
         <ion-card class="welcome-card" *ngFor="let data of scheduleArray1">
             <!-- <ion-img src="/assets/shapes.svg"></ion-img> -->
             <ion-card-header>
@@ -71,11 +78,11 @@
             </ion-card-content>
           </ion-card>
     </div>
-    <!-- <div class="row">
+    <div class="row mt-3" *ngIf="showMap">
         <div class="col-sm-2"> </div>
         <div class="col-sm-9">
             <app-google-maps *ngIf="showMap" [mapArray]="this.mapArray"></app-google-maps>
           </div>
-    </div> -->
+    </div>
   </div>
 </ion-content>

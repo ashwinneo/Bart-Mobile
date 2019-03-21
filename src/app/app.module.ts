@@ -13,11 +13,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { StationComponent } from './station/station.component';
 
+import { GoogleMapsComponent } from './google-maps/google-maps.component';
+
+import { AgmDirectionModule } from 'agm-direction';
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [AppComponent,StationComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,FormsModule
-  ],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,FormsModule,
+  AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDaYQRdZCQAhvwSuwZohDjfOY3HHdGXc4M'
+    }),
+    AgmDirectionModule
+],
 providers: [
     StatusBar,
     SplashScreen,

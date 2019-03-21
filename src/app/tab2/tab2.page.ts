@@ -8,7 +8,8 @@ import { BartStationsServiceService } from '../tab1/bart-stations-service.servic
 })
 export class Tab2Page {
 
-  constructor(private service: BartStationsServiceService) {}
+  constructor(private service: BartStationsServiceService) {
+  }
   stations = [];
   source: String = "";
   destination: String = "";
@@ -19,20 +20,24 @@ export class Tab2Page {
   mapArray = [];
   scheduleArray = [];
   scheduleArray1 = [];
+  isLoader: Boolean;
   ngOnInit(){
+    this.isLoader = true;
     this.isDisabled = true;
     this.isbtnDisabled = true;
     this.showMap = false;
     this.service.getBartStations().subscribe(data => {
       console.log(data);
+      this.isLoader = false;
       this.stations = data.root.stations.station;
     })
   }
-
+  
   selectSource(val) {
     this.source = val;
     this.isDisabled = false;
     this.showMap = false;
+    this.scheduleArray1 = [];
     if(this.source == this.destination) {
       this.isbtnDisabled = true;
       this.isError = true;
@@ -61,6 +66,7 @@ export class Tab2Page {
   selectDestination(val) {
     this.destination = val;
     this.showMap = false;
+    this.scheduleArray1 = [];
     if(this.source == this.destination) {
       this.isbtnDisabled = true;
       this.isError = true;
@@ -80,16 +86,18 @@ export class Tab2Page {
         this.mapArray[1]["lat"]= Number(data.root.stations.station.gtfs_latitude);
         this.mapArray[1]["lng"] = Number(data.root.stations.station.gtfs_longitude);
       }
-      this.showMap = true;
       console.log(this.mapArray);
     })
   }
 
   getTrips(){
+    this.isLoader = true;
     this.scheduleArray1 = [];
+    this.showMap = true;
       this.service.getTrips(this.source, this.destination).subscribe(data => {
         console.log(data);
         //this.spinner.hide();
+        this.isLoader = false;
         this.scheduleArray = data.root.schedule.request.trip;
         console.log(this.scheduleArray);
         let date = new Date();
@@ -137,4 +145,16 @@ export class Tab2Page {
     })
   }
 
+  doRefresh(event) {
+    this.isLoader = true;
+    this.service.getBartStations().subscribe(data => {
+      console.log(data);
+      this.isLoader = false;
+      this.stations = data.root.stations.station;
+    })
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
+  }
 }

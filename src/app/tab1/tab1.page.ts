@@ -37,7 +37,7 @@ export class Tab1Page {
     this.isLoader = true;
     this.service.getBartStations().subscribe(data => {
       let stationsArray = data.root.stations.station;
-      this.stnArray1 = stationsArray;
+      this.stnArray = stationsArray;
       this.isLoader = false;
     })
     setTimeout(() => {
